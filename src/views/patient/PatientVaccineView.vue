@@ -2,13 +2,13 @@
   <div class="block">
     <div id="block">
       <h2>First dose:</h2>
-      <p>brand: {{ patient.vaccine_brand[0] }}</p>
-      <p>date: {{ patient.vaccine_date[0] }}</p>
+      <p>brand: {{ patient.vaccine_brand1 }}</p>
+      <p>date: {{ patient.vaccine_date1 }}</p>
     </div>
-    <div id="block" v-if="patient.vaccine_brand[1]">
+    <div id="block" v-if="patient.vaccine_brand2">
       <h2>Second dose:</h2>
-      <p>brand: {{ patient.vaccine_brand[1] }}</p>
-      <p>date: {{ patient.vaccine_date[1] }}</p>
+      <p>brand: {{ patient.vaccine_brand2 }}</p>
+      <p>date: {{ patient.vaccine_date2 }}</p>
     </div>
   </div>
 </template>

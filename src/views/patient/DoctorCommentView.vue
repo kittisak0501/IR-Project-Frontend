@@ -3,59 +3,62 @@
     {{ GStore.flashMessage }}
   </div>
   <div class="container">
-    <div id="comment-container" v-if="comments">
+    <div id="comment-container">
       <h3>Comments:</h3>
-      <li v-for="(comment, index) in comments" :key="index">
-        {{ comment.name }}: "{{ comment.comment }}"
+      <li
+        v-for="doctorcomment in patient.doctorComments"
+        :key="doctorcomment.id"
+      >
+        {{ doctorcomment.title }}: "{{ doctorcomment.comment }}"
         <p></p>
       </li>
     </div>
-    <form id="comment-form" @submit.prevent="onSubmit">
-      <h3>Add a comment:</h3>
-      <label for="name">Doctor's name:</label>
-      <input id="name" v-model="name" />
+    <form id="comment-form" @submit.prevent="onSubmit" v-if="isAdmin">
+      <h3>Add a Comment:</h3>
+      <label for="title">Title:</label>
       <p></p>
-      <label for="newComment">Comment:</label>
-      <textarea id="newComment" v-model="newComment"></textarea>
-      <input class="button" @click="notify" type="submit" value="Submit" />
+      <input id="title" v-model="doctorcomments.title" />
+      <p></p>
+      <label for="comment">Comment:</label>
+      <textarea id="comment" v-model="doctorcomments.comment"></textarea>
+      <input class="button" type="submit" value="Submit" />
     </form>
   </div>
 </template>
 <script>
+import PatientService from '@/services/PatientService'
+import AuthService from '@/services/AuthService'
 export default {
-  name: 'DoctorComment',
-  props: ['patient'],
+  props: ['id', 'patient'],
   inject: ['GStore'],
   data() {
     return {
-      comments: [],
-      name: '',
-      comment: ''
+      doctorcomments: {
+        name: '',
+        comment: '',
+        patient: this.patient
+      }
     }
   },
   methods: {
-    notify() {
-      this.GStore.flashMessage = 'Comment Added.'
-      setTimeout(() => {
-        this.GStore.flashMessage = ''
-      }, 3000)
-      this.$router.push({
-        name: 'DoctorComment',
-        params: { id: this.patient.id }
-      })
-    },
     onSubmit() {
-      if (this.name === '' || this.newComment === '') {
-        alert('comment is incomplete. Please fill every field.')
-        return
-      }
-      let comments = {
-        name: this.name,
-        comment: this.newComment
-      }
-      this.comments.push(comments)
-      this.name = ''
-      this.newComment = ''
+      PatientService.addDoctorComments(this.doctorcomments)
+        .then((response) => {
+          console.log(response)
+          this.$router.go()
+          this.GStore.flashMessage = 'Successfully Added Comment.'
+          setTimeout(() => {
+            this.GStore.flashMessage = ''
+          }, 3000)
+        })
+        .catch(() => {
+          this.$router.push('NetworkError')
+        })
+    }
+  },
+  computed: {
+    isAdmin() {
+      return AuthService.hasRoles('ROLE_ADMIN')
     }
   }
 }
@@ -128,8 +131,8 @@ textarea {
   margin-bottom: 0;
   text-align: left;
 }
-#name {
-  width: 98%;
+#title {
+  width: 95%;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
 }

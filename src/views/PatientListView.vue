@@ -1,11 +1,13 @@
 <template>
   <h2>Patients:</h2>
   <div class="patients">
-    <PatientCard
-      v-for="patient in patients"
-      :key="patient.id"
-      :patient="patient"
-    ></PatientCard>
+    <span v-if="isAdmin">
+      <PatientCard
+        v-for="patient in patients"
+        :key="patient.id"
+        :patient="patient"
+      ></PatientCard>
+    </span>
 
     <div class="pagination">
       <router-link
@@ -31,6 +33,7 @@
 
 <script>
 // @ is an alias to /src
+import AuthService from '@/services/AuthService.js'
 import PatientCard from '@/components/PatientCard.vue'
 import PatientService from '@/services/PatientService.js'
 // import { watchEffect } from '@vue/runtime-core'
@@ -78,6 +81,9 @@ export default {
     hasNextPage() {
       let totalPages = Math.ceil(this.totalPatients / 4)
       return this.page < totalPages
+    },
+    isAdmin() {
+      return AuthService.hasRoles('ROLE_ADMIN')
     }
   }
 }

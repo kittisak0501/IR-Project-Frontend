@@ -9,6 +9,8 @@ import GStore from '@/store'
 import NProgress from 'nprogress'
 import NetWorkErrorView from '@/views/NetworkErrorView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
+import Login from '@/views/LoginFormView.vue'
+//import DoctorCommentService from '@/services/DoctorCommentService'
 
 const routes = [
   {
@@ -52,12 +54,27 @@ const routes = [
         component: PatientVaccineView
       },
       {
-        path: 'doctor',
+        path: 'doctorcomments',
         name: 'DoctorComment',
         props: true,
         component: DoctorCommentView
+        // beforeEnter: (to) => {
+        //   return DoctorCommentService.getDoctors(to.params.id)
+        //     .then((response) => {
+        //       GStore.doctorcomments = response.data
+        //     })
+        //     .catch(() => {
+        //       GStore.doctorcomments = null
+        //       console.log('cannot load doctor comments')
+        //     })
+        // }
       }
     ]
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
   },
   {
     path: '/404/:resource',

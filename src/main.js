@@ -6,6 +6,7 @@ import App from './App.vue'
 import router from './router'
 import GStore from './store'
 import 'nprogress/nprogress.css'
+import '@/services/AxiosInterceptorSetup.js'
 
 createApp(App)
   .use(router)

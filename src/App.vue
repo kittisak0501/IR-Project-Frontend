@@ -16,14 +16,41 @@
           </router-link>
         </li>
       </ul>
+      <ul v-if="GStore.currentUser" class="navbar-nav ml-auto">
+        <li class="nav-items">
+          <router-link to="/profile" class="nav-link">
+            <font-awesome-icon icon="user" />{{ GStore.currentUser.name }}
+          </router-link>
+        </li>
+        <li class="nav-items">
+          <a class="nav-link" @click="logout">
+            <font-awesome-icon icon="sign-out-alt" /> Logout
+          </a>
+        </li>
+      </ul>
     </nav>
   </nav>
   <router-view />
 </template>
 
 <script>
+import AuthService from '@/services/AuthService.js'
 export default {
-  inject: ['GStore']
+  inject: ['GStore'],
+  computed: {
+    currentUser() {
+      return localStorage.getItem('user')
+    },
+    isAdmin() {
+      return AuthService.hasRoles('ROLE_ADMIN')
+    }
+  },
+  methods: {
+    logout() {
+      AuthService.logout()
+      this.$router.go()
+    }
+  }
 }
 </script>
 

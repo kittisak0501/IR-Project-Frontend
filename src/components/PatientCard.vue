@@ -32,7 +32,7 @@ export default {
 }
 
 .patient-card:hover {
-  opacity: 95%;
+  opacity: 100%;
   transform: scale(1.01);
   box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2);
 }

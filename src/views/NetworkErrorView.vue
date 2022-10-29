@@ -9,3 +9,9 @@
     </h3>
   </div>
 </template>
+
+<style scoped>
+.networkError {
+  margin-top: 30px;
+}
+</style>
