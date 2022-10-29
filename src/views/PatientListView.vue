@@ -85,6 +85,7 @@ export default {
 <style scoped>
 h2 {
   text-align: left;
+  margin-top: 30px;
   padding-left: 300px;
 }
 .patients {
@@ -92,11 +93,12 @@ h2 {
   flex-direction: column;
   align-items: left;
   padding-left: 300px;
-  padding-right: 300px;
+  padding-right: 250px;
 }
 .pagination {
   display: flex;
   width: 100%;
+  padding-right: 30px;
   margin-bottom: 20px;
 }
 

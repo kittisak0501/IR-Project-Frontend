@@ -27,8 +27,10 @@ export default {
 }
 .block {
   border: 1px solid #000;
+  border-radius: 5px;
   align-items: center;
   padding-top: 10px;
+  margin-top: 30px;
   margin-left: 35%;
   margin-right: 35%;
 }

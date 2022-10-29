@@ -1,9 +1,31 @@
 <template>
-  <div class="navbar">
-    <router-link to="/">+ COVID VACCINATION</router-link>
-  </div>
+  <nav class="navbar navbar-dark" style="background-color: lightskyblue">
+    <router-link to="/" style="font-size: 25px">
+      <font-awesome-icon icon="suitcase-medical" /> COVID VACCINATION
+    </router-link>
+    <nav class="navbar-expand">
+      <ul v-if="!GStore.currentUser" class="navbar-nav ml-auto">
+        <li class="nav-items">
+          <router-link to="/register" class="nav-link">
+            <font-awesome-icon icon="user-plus" /> Sign Up
+          </router-link>
+        </li>
+        <li class="nav-items">
+          <router-link to="/login" class="nav-link">
+            <font-awesome-icon icon="sign-in-alt" /> Login
+          </router-link>
+        </li>
+      </ul>
+    </nav>
+  </nav>
   <router-view />
 </template>
+
+<script>
+export default {
+  inject: ['GStore']
+}
+</script>
 
 <style>
 #app {
@@ -13,21 +35,15 @@
   text-align: center;
   color: #2c3e50;
 }
-.navbar {
-  margin: -1% -1% 1% -1%;
-  overflow: hidden;
-  background-color: lightskyblue;
-}
-
 .navbar a {
   float: left;
   font-weight: bold;
   color: white;
-  text-align: center;
-  padding: 16px 29px;
   text-decoration: none;
   font-weight: 700;
-  font-size: 25px;
+  font-size: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 h4 {

@@ -3,17 +3,16 @@
     {{ GStore.flashMessage }}
   </div>
   <div class="container">
-    <div class="comment-container" v-if="comments">
+    <div id="comment-container" v-if="comments">
       <h3>Comments:</h3>
       <li v-for="(comment, index) in comments" :key="index">
         {{ comment.name }}: "{{ comment.comment }}"
         <p></p>
       </li>
     </div>
-    <form class="comment-form" @submit.prevent="onSubmit">
+    <form id="comment-form" @submit.prevent="onSubmit">
       <h3>Add a comment:</h3>
       <label for="name">Doctor's name:</label>
-      <p></p>
       <input id="name" v-model="name" />
       <p></p>
       <label for="newComment">Comment:</label>
@@ -75,12 +74,13 @@ export default {
   animation-name: bluefade;
   animation-duration: 3s;
 }
-.comment-form {
+#comment-form {
   display: inline-block;
   width: 425px;
   padding: 20px;
-  margin: 20px;
+  margin: 20px 10px 20px 10px;
   border: 1px solid black;
+  border-radius: 5px;
   background-color: white;
   -webkit-box-shadow: 0px 2px 15px -12px rgba(0, 0, 0, 0.57);
   -moz-box-shadow: 0px 2px 15px -12px rgba(0, 0, 0, 0.57);
@@ -111,24 +111,19 @@ textarea {
   font-family: 'Roboto', sans-serif;
   margin-bottom: 20px;
 }
-.comment-container {
+#comment-container {
   display: inline-block;
-  float: left;
+  vertical-align: top;
   width: 425px;
   padding: 20px;
-  margin-top: 20px;
-  margin-left: 20px;
+  margin: 20px 10px 20px 10px;
   background-color: white;
   -webkit-box-shadow: 0px 2px 20px -12px rgba(0, 0, 0, 0.57);
   -moz-box-shadow: 0px 2px 20px -12px rgba(0, 0, 0, 0.57);
   box-shadow: 2px 20px -12px rgba(0, 0, 0, 0.57);
   border: 1px solid black;
+  border-radius: 5px;
 }
-.container {
-  margin-left: 260px;
-  margin-right: 260px;
-}
-
 .comment-container li {
   margin-bottom: 0;
   text-align: left;

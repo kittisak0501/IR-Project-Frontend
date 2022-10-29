@@ -27,11 +27,11 @@ export default {
   width: 97%;
   cursor: pointer;
   border: 1px solid #39495c;
+  border-radius: 5px;
   margin-bottom: 18px;
 }
 
 .patient-card:hover {
-  background-color: rgb(135, 225, 250);
   opacity: 95%;
   transform: scale(1.01);
   box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2);

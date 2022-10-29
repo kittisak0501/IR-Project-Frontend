@@ -1,14 +1,16 @@
 <template>
   <div v-if="GStore.patient">
-    <div class="nav">
-      <router-link :to="{ name: 'PatientDetails' }">DETAILS</router-link>
+    <div class="nav justify-content-center">
+      <router-link :to="{ name: 'PatientDetails' }">
+        <font-awesome-icon icon="file-lines" /> DETAILS</router-link
+      >
 
       <router-link :to="{ name: 'PatientVaccine' }"
-        >VACCINATION STATUS</router-link
+        ><font-awesome-icon icon="syringe" /> VACCINATION STATUS</router-link
       >
 
       <router-link :to="{ name: 'DoctorComment' }"
-        >DOCTOR'S COMMENT</router-link
+        ><font-awesome-icon icon="message" /> DOCTOR'S COMMENT</router-link
       >
     </div>
     <h1>{{ GStore.patient.first_name }} {{ GStore.patient.last_name }}</h1>
@@ -16,15 +18,15 @@
   </div>
 </template>
 <script>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 export default {
-  inject: ['GStore']
+  inject: ['GStore'],
+  components: { FontAwesomeIcon }
 }
 </script>
 
 <style scoped>
-.nav {
-  margin: 20px;
-}
 .nav a {
   float: center;
   padding: 16px 14px;
