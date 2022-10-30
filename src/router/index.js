@@ -10,6 +10,8 @@ import NProgress from 'nprogress'
 import NetWorkErrorView from '@/views/NetworkErrorView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import Login from '@/views/LoginFormView.vue'
+import AddPatient from '@/views/PatientForm.vue'
+import DoctorService from '@/services/DoctorService.js'
 //import DoctorCommentService from '@/services/DoctorCommentService'
 
 const routes = [
@@ -70,6 +72,21 @@ const routes = [
         // }
       }
     ]
+  },
+  {
+    path: '/add-patient',
+    name: 'AddPatient',
+    component: AddPatient,
+    beforeEnter: (to) => {
+      return DoctorService.getDoctors(to.params.id)
+        .then((response) => {
+          GStore.doctors = response.data
+        })
+        .catch(() => {
+          GStore.doctors = null
+          console.log('cannot load doctor list')
+        })
+    }
   },
   {
     path: '/login',

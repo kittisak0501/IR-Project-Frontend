@@ -4,7 +4,7 @@
     v-bind="$attrs"
     :value="modelValue"
     :placeholder="label"
-    @input="inputHandler($patient)"
+    @input="inputHandler($event)"
     class="field"
   />
 </template>
@@ -22,9 +22,18 @@ export default {
     }
   },
   methods: {
-    inputHandler(patient) {
-      this.$emit('update:modelValue', patient.target.value)
+    inputHandler(event) {
+      this.$emit('update:modelValue', event.target.value)
     }
   }
 }
 </script>
+
+<style scoped>
+label {
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-top: 5px;
+  font-weight: 300;
+}
+</style>

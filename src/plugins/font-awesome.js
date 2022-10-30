@@ -9,7 +9,8 @@ import {
   faMedkit,
   faFileLines,
   faSyringe,
-  faMessage
+  faMessage,
+  faFolderPlus
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -21,7 +22,8 @@ library.add(
   faMedkit,
   faFileLines,
   faSyringe,
-  faMessage
+  faMessage,
+  faFolderPlus
 )
 
 export { FontAwesomeIcon }

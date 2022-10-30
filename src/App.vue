@@ -17,9 +17,15 @@
         </li>
       </ul>
       <ul v-if="GStore.currentUser" class="navbar-nav ml-auto">
+        <li class="nav-items" v-if="isAdmin">
+          <router-link to="/add-patient" class="nav-link"
+            ><font-awesome-icon icon="folder-plus" /> Add Patient</router-link
+          >
+        </li>
         <li class="nav-items">
           <router-link to="/profile" class="nav-link">
-            <font-awesome-icon icon="user" />{{ GStore.currentUser.name }}
+            <font-awesome-icon icon="user" />
+            {{ GStore.currentUser.doctor_name }}
           </router-link>
         </li>
         <li class="nav-items">
