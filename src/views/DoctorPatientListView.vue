@@ -2,30 +2,10 @@
   <h2 style="font-weight: 700">Patients:</h2>
   <div class="patients">
     <PatientCard
-      v-for="patient in patients"
+      v-for="patient in doctorPatient"
       :key="patient.id"
       :patient="patient"
     ></PatientCard>
-
-    <div class="pagination">
-      <router-link
-        id="page-prev"
-        :to="{ name: 'PatientList', query: { page: page - 1 } }"
-        rel="prev"
-        v-if="page != 1"
-      >
-        Prev Page
-      </router-link>
-
-      <router-link
-        id="page-next"
-        :to="{ name: 'PatientList', query: { page: page + 1 } }"
-        rel="next"
-        v-if="hasNextPage"
-      >
-        Next Page
-      </router-link>
-    </div>
   </div>
 </template>
 
@@ -33,31 +13,26 @@
 // @ is an alias to /src
 import AuthService from '@/services/AuthService.js'
 import PatientCard from '@/components/PatientCard.vue'
-import PatientService from '@/services/PatientService.js'
+import DoctorService from '@/services/DoctorService.js'
+import GStore from '@/store'
 // import { watchEffect } from '@vue/runtime-core'
 export default {
-  name: 'PatientListView',
-  props: {
-    page: {
-      type: Number,
-      required: true
-    }
-  },
+  inject: ['GStore'],
+  name: 'DoctorPatientList',
   components: {
     PatientCard
   },
   data() {
     return {
-      patients: null,
-      totalPatients: 0
+      doctorPatient: null
     }
   },
+  /* eslint-disable-next-line no-unused-vars */
   beforeRouteEnter(routeTo, routeFrom, next) {
-    PatientService.getPatients(4, parseInt(routeTo.query.page) || 1)
+    DoctorService.getDoctorPatient(GStore.currentUser.id)
       .then((response) => {
         next((comp) => {
-          comp.patients = response.data
-          comp.totalPatients = response.headers['x-total-count']
+          comp.doctorPatient = response.data
         })
       })
       .catch(() => {
@@ -65,10 +40,9 @@ export default {
       })
   },
   beforeRouteUpdate(routeTo, routeFrom, next) {
-    PatientService.getPatients(4, parseInt(routeTo.query.page) || 1)
+    DoctorService.getDoctorPatient(GStore.currentUser.id)
       .then((response) => {
-        this.patients = response.data
-        this.totalPatients = response.headers['x-total-count']
+        this.doctorPatient = response.data
         next()
       })
       .catch(() => {
@@ -76,10 +50,6 @@ export default {
       })
   },
   computed: {
-    hasNextPage() {
-      let totalPages = Math.ceil(this.totalPatients / 4)
-      return this.page < totalPages
-    },
     isAdmin() {
       return AuthService.hasRoles('ROLE_ADMIN')
     }

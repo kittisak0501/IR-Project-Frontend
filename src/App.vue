@@ -1,6 +1,9 @@
 <template>
   <nav class="navbar navbar-dark" style="background-color: lightskyblue">
-    <router-link to="/" style="font-size: 25px">
+    <router-link to="/" style="font-size: 25px" v-if="!isAdmin">
+      <font-awesome-icon icon="suitcase-medical" /> COVID VACCINATION
+    </router-link>
+    <router-link to="/doctorsPatient" style="font-size: 25px" v-if="isAdmin">
       <font-awesome-icon icon="suitcase-medical" /> COVID VACCINATION
     </router-link>
     <nav class="navbar-expand">

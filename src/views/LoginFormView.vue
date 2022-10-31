@@ -70,10 +70,12 @@ export default {
     handleLogin(user) {
       AuthService.login(user)
         .then(() => {
-          this.$router.push({ name: 'PatientList' })
+          if (user.username === 'admin') {
+            this.$router.push({ name: 'DoctorPatientList' })
+          }
         })
         .catch(() => {
-          this.message = 'could not login'
+          this.message = 'could not login.'
         })
     }
   }

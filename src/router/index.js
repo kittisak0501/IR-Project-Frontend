@@ -13,6 +13,7 @@ import Login from '@/views/LoginFormView.vue'
 import AddPatient from '@/views/PatientForm.vue'
 import DoctorService from '@/services/DoctorService.js'
 import Register from '@/views/RegisterFormView.vue'
+import DoctorPatientList from '@/views/DoctorPatientListView.vue'
 //import DoctorCommentService from '@/services/DoctorCommentService'
 
 const routes = [
@@ -73,6 +74,22 @@ const routes = [
         // }
       }
     ]
+  },
+  {
+    path: '/doctorsPatient',
+    name: 'DoctorPatientList',
+    component: DoctorPatientList,
+    beforeEnter: () => {
+      return DoctorService.getDoctors()
+        .then((response) => {
+          console.log(GStore.doctors)
+          GStore.doctors = response.data
+        })
+        .catch(() => {
+          GStore.doctors = null
+          console.log('cannot load doctor')
+        })
+    }
   },
   {
     path: '/add-patient',
