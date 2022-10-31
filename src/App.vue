@@ -1,15 +1,9 @@
 <template>
   <nav class="navbar navbar-dark" style="background-color: lightskyblue">
     <router-link
-      style="font-size: 25px"
-      v-if="!isAdmin && !isDoctor && !isUser"
-    >
-      <font-awesome-icon icon="suitcase-medical" /> COVID VACCINATION
-    </router-link>
-    <router-link
       :to="{ name: 'PatientDetails', params: { id: 1 } }"
       style="font-size: 25px"
-      v-if="isUser"
+      v-if="isUser && !isAdmin && !isDoctor"
     >
       <font-awesome-icon icon="suitcase-medical" /> COVID VACCINATION
     </router-link>
@@ -76,7 +70,7 @@ export default {
   methods: {
     logout() {
       AuthService.logout()
-      this.$router.go()
+      this.$router.push('/login')
     }
   }
 }
