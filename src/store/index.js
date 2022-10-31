@@ -4,5 +4,6 @@ export default reactive({
   patient: null,
   doctors: null,
   doctorcomments: null,
+  user: null,
   currentUser: JSON.parse(localStorage.getItem('user'))
 })

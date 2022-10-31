@@ -36,4 +36,7 @@ label {
   margin-top: 5px;
   font-weight: 300;
 }
+input {
+  width: 50%;
+}
 </style>

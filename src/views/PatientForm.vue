@@ -28,24 +28,29 @@
 
       <div class="container">
         <h3>Vaccine Status:</h3>
-        <BaseInput
-          v-model="patient.vaccine_stat"
-          type="text"
-          label="Vaccination Status: "
-        />
+        <label for="doses">Vaccination Status:</label>
+        <select name="Vaccine_dose" v-model="patient.vaccine_stat">
+          <option value="First Dose">First Dose</option>
+          <option value="Second Dose">Second Dose</option>
+        </select>
         <p></p>
-        <BaseInput
-          v-model="patient.vaccine_brand1"
-          type="text"
-          label="First Dose: "
-        />
+        <label for="brand">First Dose:</label>
+        <select name="Vaccine_brand1" v-model="patient.vaccine_brand1">
+          <option value="Sinovac">Sinovac</option>
+          <option value="AstraZeneca">AstraZeneca</option>
+          <option value="Pfizer">Pfizer</option>
+          <option value="Johnson&Johnson">Johnson&Johnson</option>
+        </select>
 
         <BaseInput v-model="patient.vaccine_date1" type="text" label="Date:" />
-        <BaseInput
-          v-model="patient.vaccine_brand2"
-          type="text"
-          label="Second Dose: "
-        />
+
+        <label for="brand">Second Dose:</label>
+        <select name="Vaccine_brand2" v-model="patient.vaccine_brand2">
+          <option value="Sinovac">Sinovac</option>
+          <option value="AstraZeneca">AstraZeneca</option>
+          <option value="Pfizer">Pfizer</option>
+          <option value="Johnson&Johnson">Johnson&Johnson</option>
+        </select>
 
         <BaseInput v-model="patient.vaccine_date2" type="text" label="Date:" />
         <p></p>
@@ -91,7 +96,7 @@ export default {
         vaccine_stat: '',
         vaccine_brand1: '',
         vaccine_date1: '',
-        vaccime_brand2: '',
+        vaccine_brand2: '',
         vaccine_date2: '',
         doctor: { id: '', doctor_name: '' }
       },
@@ -160,5 +165,9 @@ export default {
 
 label {
   font-weight: 300;
+}
+
+select {
+  width: 50%;
 }
 </style>

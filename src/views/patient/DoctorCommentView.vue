@@ -4,7 +4,7 @@
   </div>
   <div class="container">
     <div id="comment-container">
-      <h3>Comments:</h3>
+      <h3 style="font-weight: 700">Comments:</h3>
       <li
         v-for="doctorcomment in patient.doctorComments"
         :key="doctorcomment.id"
@@ -14,14 +14,16 @@
       </li>
     </div>
     <form id="comment-form" @submit.prevent="onSubmit" v-if="isAdmin">
-      <h3>Add a Comment:</h3>
+      <h3 style="font-weight: 700">Add a Comment:</h3>
       <label for="title">Title:</label>
       <p></p>
       <input id="title" v-model="doctorcomments.title" />
       <p></p>
       <label for="comment">Comment:</label>
       <textarea id="comment" v-model="doctorcomments.comment"></textarea>
-      <input class="button" type="submit" value="Submit" />
+      <button type="submit" style="border-radius: 5px; width: 95%">
+        Submit
+      </button>
     </form>
   </div>
 </template>

@@ -1,6 +1,5 @@
 <template>
   <div class="block">
-    {{ patient }}
     <img v-for="url in patient.imageUrls" :key="url" :src="url" />
     <p>Age: {{ patient.age }}</p>
     <p>Hometown: {{ patient.hometown }}</p>

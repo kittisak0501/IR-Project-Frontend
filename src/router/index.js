@@ -12,6 +12,7 @@ import NotFoundView from '@/views/NotFoundView.vue'
 import Login from '@/views/LoginFormView.vue'
 import AddPatient from '@/views/PatientForm.vue'
 import DoctorService from '@/services/DoctorService.js'
+import Register from '@/views/RegisterFormView.vue'
 //import DoctorCommentService from '@/services/DoctorCommentService'
 
 const routes = [
@@ -92,6 +93,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register
   },
   {
     path: '/404/:resource',

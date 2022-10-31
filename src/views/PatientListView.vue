@@ -1,13 +1,11 @@
 <template>
   <h2>Patients:</h2>
   <div class="patients">
-    <span v-if="isAdmin">
-      <PatientCard
-        v-for="patient in patients"
-        :key="patient.id"
-        :patient="patient"
-      ></PatientCard>
-    </span>
+    <PatientCard
+      v-for="patient in patients"
+      :key="patient.id"
+      :patient="patient"
+    ></PatientCard>
 
     <div class="pagination">
       <router-link
