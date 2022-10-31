@@ -13,7 +13,7 @@
         <p></p>
       </li>
     </div>
-    <form id="comment-form" @submit.prevent="onSubmit" v-if="isAdmin">
+    <form id="comment-form" @submit.prevent="onSubmit" v-if="isDoctor">
       <h3 style="font-weight: 700">Add a Comment:</h3>
       <label for="title">Title:</label>
       <p></p>
@@ -59,8 +59,8 @@ export default {
     }
   },
   computed: {
-    isAdmin() {
-      return AuthService.hasRoles('ROLE_ADMIN')
+    isDoctor() {
+      return AuthService.hasRoles('ROLE_DOCTOR')
     }
   }
 }

@@ -70,8 +70,12 @@ export default {
     handleLogin(user) {
       AuthService.login(user)
         .then(() => {
-          if (user.username === 'admin') {
+          if (AuthService.hasRoles('ROLE_ADMIN')) {
+            this.$router.push({ name: 'PatientList' })
+          } else if (AuthService.hasRoles('ROLE_DOCTOR')) {
             this.$router.push({ name: 'DoctorPatientList' })
+          } else if (AuthService.hasRoles('ROLE_USER')) {
+            this.$router.push({ name: 'PatientDetails', params: { id: 1 } })
           }
         })
         .catch(() => {

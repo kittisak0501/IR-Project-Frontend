@@ -11,8 +11,8 @@
       <p>date: {{ patient.vaccine_date2 }}</p>
     </div>
   </div>
-  <div class="block">
-    <form id="container" @submit.prevent="onSubmit" v-if="isAdmin">
+  <div class="block" v-if="isAdmin">
+    <form id="container" @submit.prevent="onSubmit">
       <h3>Edit Vaccine Status:</h3>
       <label for="doses">Vaccination Status:</label>
       <select name="Vaccine_dose" v-model="patients.vaccine_stat">

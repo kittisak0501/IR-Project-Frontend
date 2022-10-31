@@ -1,9 +1,22 @@
 <template>
   <nav class="navbar navbar-dark" style="background-color: lightskyblue">
-    <router-link to="/" style="font-size: 25px" v-if="!isAdmin">
+    <router-link
+      style="font-size: 25px"
+      v-if="!isAdmin && !isDoctor && !isUser"
+    >
       <font-awesome-icon icon="suitcase-medical" /> COVID VACCINATION
     </router-link>
-    <router-link to="/doctorsPatient" style="font-size: 25px" v-if="isAdmin">
+    <router-link
+      :to="{ name: 'PatientDetails', params: { id: 1 } }"
+      style="font-size: 25px"
+      v-if="isUser"
+    >
+      <font-awesome-icon icon="suitcase-medical" /> COVID VACCINATION
+    </router-link>
+    <router-link to="/" style="font-size: 25px" v-if="isAdmin">
+      <font-awesome-icon icon="suitcase-medical" /> COVID VACCINATION
+    </router-link>
+    <router-link to="/doctorsPatient" style="font-size: 25px" v-if="isDoctor">
       <font-awesome-icon icon="suitcase-medical" /> COVID VACCINATION
     </router-link>
     <nav class="navbar-expand">
@@ -52,6 +65,12 @@ export default {
     },
     isAdmin() {
       return AuthService.hasRoles('ROLE_ADMIN')
+    },
+    isDoctor() {
+      return AuthService.hasRoles('ROLE_DOCTOR')
+    },
+    isUser() {
+      return AuthService.hasRoles('ROLE_USER')
     }
   },
   methods: {

@@ -3,6 +3,7 @@
     <img v-for="url in patient.imageUrls" :key="url" :src="url" />
     <p>Age: {{ patient.age }}</p>
     <p>Hometown: {{ patient.hometown }}</p>
+    <p>Doctor in charge: {{ patient.doctor.doctor_name }}</p>
   </div>
 </template>
 
@@ -28,7 +29,8 @@ img:hover {
   border: 1px solid black;
   border-radius: 5px;
   text-align: center;
-  margin-left: 400px;
-  margin-right: 400px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
