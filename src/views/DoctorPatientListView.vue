@@ -12,7 +12,7 @@
 <script>
 // @ is an alias to /src
 import AuthService from '@/services/AuthService.js'
-import PatientCard from '@/components/PatientCard.vue'
+import PatientCard from '@/components/GenreCard.vue'
 import DoctorService from '@/services/DoctorService.js'
 import GStore from '@/store'
 // import { watchEffect } from '@vue/runtime-core'

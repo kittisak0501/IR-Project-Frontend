@@ -2,7 +2,7 @@ import apiClient from './AxiosClient.js'
 
 export default {
   getPatients(perPage, page) {
-    return apiClient.get('/patients?_limit=' + perPage + '&_page=' + page)
+    return apiClient.get('/anime?limit=' + perPage + '&page=' + page)
   },
   getPatient(id) {
     return apiClient.get('/patients/' + id)
