@@ -6,7 +6,26 @@
       :key="anime.mal_id"
       :anime="anime"
     ></AnimeCard>
-    {{ animes }}
+
+    <div class="pagination">
+      <router-link
+        id="page-prev"
+        :to="{ name: 'AnimeList', query: { page: page - 1 } }"
+        rel="prev"
+        v-if="page != 1"
+      >
+        Prev Page
+      </router-link>
+
+      <router-link
+        id="page-next"
+        :to="{ name: 'AnimeList', query: { page: page + 1 } }"
+        rel="next"
+        v-if="hasNextPage"
+      >
+        Next Page
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -34,7 +53,7 @@ export default {
     AnimeService.getAnimes(parseInt(routeTo.query.page) || 1)
       .then((response) => {
         next((comp) => {
-          comp.animes = response.data.data[0]
+          comp.animes = response.data.data
         })
       })
       .catch(() => {
@@ -50,11 +69,8 @@ h2 {
   padding-left: 300px;
 }
 .animes {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  padding-left: 300px;
-  padding-right: 250px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 .pagination {
   display: flex;

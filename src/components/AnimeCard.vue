@@ -1,12 +1,20 @@
 <template>
-  <router-link
-    class="anime-link"
-    :to="{ name: 'AnimeDetails', params: { id: anime.id } }"
-  >
-    <div class="anime-card">
-      <span>{{ anime }}</span>
-    </div>
-  </router-link>
+  <div class="anime-card">
+    <h4 style="font-weight: bolder">
+      <b>{{ anime.title }}</b>
+    </h4>
+    <br />
+    <img :src="anime.images.webp.image_url" />
+    <br />
+    <span>Episodes: {{ anime.episodes }}</span
+    ><br />
+    <span>Season: {{ anime.season }} {{ anime.year }}</span
+    ><br />
+    <span>Genres: </span>
+    <span v-for="genre in anime.genres" :key="genre.name"
+      >{{ genre.name }} .
+    </span>
+  </div>
 </template>
 <script>
 export default {
@@ -21,13 +29,15 @@ export default {
 </script>
 <style scoped>
 .anime-card {
+  display: inline-block;
+  vertical-align: top;
   padding: 20px;
-  text-align: left;
-  width: 97%;
+  width: 18%;
+  max-height: 400px;
+  height: 400px;
   cursor: pointer;
-  border: 1px solid #39495c;
-  border-radius: 5px;
-  margin-bottom: 18px;
+  border: 1px solid #1a467d;
+  margin: 5px;
 }
 
 .anime-card:hover {
@@ -39,5 +49,16 @@ export default {
 .anime-link {
   color: #2c3e50;
   text-decoration: none;
+}
+
+span {
+  font-size: small;
+  margin: 0;
+}
+h4 {
+  margin: 0;
+}
+img {
+  height: 230px;
 }
 </style>

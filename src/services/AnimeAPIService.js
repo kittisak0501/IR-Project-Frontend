@@ -5,6 +5,6 @@ export default {
     return apiClient.get('/genres/anime')
   },
   getAnimes(page) {
-    return apiClient.get('/anime?page=' + page)
+    return apiClient.get('/anime?sfw=true&page=' + page)
   }
 }
