@@ -21,7 +21,8 @@ const routes = [
   {
     path: '/',
     name: 'AnimeList',
-    component: AnimeListView
+    component: AnimeListView,
+    props: (route) => ({ page: parseInt(route.query.page) || 1 })
   },
   {
     path: '/patient',

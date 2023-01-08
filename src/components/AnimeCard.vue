@@ -33,8 +33,8 @@ export default {
   vertical-align: top;
   padding: 20px;
   width: 18%;
-  max-height: 400px;
-  height: 400px;
+  max-height: 450px;
+  height: 450px;
   cursor: pointer;
   border: 1px solid #1a467d;
   margin: 5px;
