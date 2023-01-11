@@ -9,6 +9,7 @@
     </select>
   </form>
   <h2 style="font-weight: 700">Search Anime:</h2>
+  {{ animes }}
   <div class="animes">
     <AnimeCard
       v-for="anime in animes"
@@ -20,7 +21,7 @@
 
 <script>
 import AnimeCard from '@/components/AnimeCard.vue'
-import AnimeService from '@/services/AnimeAPIService.js'
+import AnimeSearchService from '@/services/AnimeSearch.js'
 export default {
   name: 'AnimeSearchView',
   props: {
@@ -49,9 +50,9 @@ export default {
   },
   methods: {
     search() {
-      AnimeService.searchAnimeByContent(parseInt(this.page) || 1, this.newname)
+      AnimeSearchService.searchAnimeByName(this.newname)
         .then((response) => {
-          this.animes = response.data.data
+          this.animes = response.data
           this.$router.push({
             name: 'AnimeSearch',
             query: { name: this.newname, filter: this.newfilter }

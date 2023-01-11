@@ -86,15 +86,15 @@ export default {
     }
   },
   beforeRouteEnter(routeTo, routeFrom, next) {
-    AnimeService.getAnimes(parseInt(routeTo.query.page) || 1)
-      .then((response) => {
-        next((comp) => {
+    next((comp) => {
+      AnimeService.getAnimes(parseInt(routeTo.query.page) || 1)
+        .then((response) => {
           comp.animes = response.data.data
         })
-      })
-      .catch(() => {
-        next({ name: 'NetworkError' })
-      })
+        .catch(() => {
+          next({ name: 'NetworkError' })
+        })
+    })
   },
   beforeRouteUpdate(routeTo, routeFrom, next) {
     AnimeService.getAnimes(parseInt(routeTo.query.page) || 1)
