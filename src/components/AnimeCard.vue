@@ -1,22 +1,22 @@
 <template>
-  <div class="anime-card">
-    <h4 style="font-weight: bolder">
-      <b>{{ anime.title }}</b>
-    </h4>
-    <br />
-    <img :src="anime.images.webp.image_url" />
-    <br />
-    <span>Episodes: {{ anime.episodes }}</span
-    ><br />
-    <span>Season: {{ anime.season }} {{ anime.year }}</span
-    ><br />
-    <span>Genres: </span>
-    <span v-for="genre in anime.genres" :key="genre.name"
-      >{{ genre.name }} . </span
-    ><br />
-    <span>Score: </span>
-    <span>{{ anime.score }}</span>
-  </div>
+  <a class="anime-link" :href="anime.url">
+    <div class="anime-card">
+      <h4 style="font-weight: bolder">
+        <b>{{ anime.title }}</b>
+      </h4>
+      <br />
+      <img :src="anime.images.webp.image_url" />
+      <br />
+      <span>Episodes: {{ anime.episodes }}</span
+      ><br />
+      <span>Season: {{ anime.season }} {{ anime.year }}</span
+      ><br />
+      <span>Genres: </span>
+      <span v-for="genre in anime.genres" :key="genre.name"
+        >{{ genre.name }} .
+      </span>
+    </div>
+  </a>
 </template>
 <script>
 export default {
