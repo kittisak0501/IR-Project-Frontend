@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AnimeListView from '../views/AnimeListView.vue'
-import PatientListView from '../views/PatientListView.vue'
+import AnimeSearchView from '../views/AnimeSearchView.vue'
 import PatientLayoutView from '@/views/patient/PatientLayoutView.vue'
 import PatientDetailView from '@/views/patient/PatientDetailsView.vue'
 import PatientVaccineView from '@/views/patient/PatientVaccineView.vue'
@@ -25,9 +25,14 @@ const routes = [
     props: (route) => ({ page: parseInt(route.query.page) || 1 })
   },
   {
-    path: '/patient',
-    name: 'PatientList',
-    component: PatientListView
+    path: '/search',
+    name: 'AnimeSearch',
+    component: AnimeSearchView,
+    props: (route) => ({
+      page: parseInt(route.query.page) || 1,
+      name: route.query.name,
+      filter: route.query.filter
+    })
   },
   {
     path: '/patient/:id',

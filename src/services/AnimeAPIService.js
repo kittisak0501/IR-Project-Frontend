@@ -1,10 +1,10 @@
 import apiClient from './AxiosClient.js'
 
 export default {
-  getAnimeGenres() {
-    return apiClient.get('/genres/anime')
+  searchAnimeByContent(page, q) {
+    return apiClient.get('/anime?sfw=true&page=' + page + '&q=' + q)
   },
   getAnimes(page) {
-    return apiClient.get('/top/anime?&page=' + page)
+    return apiClient.get('/top/anime?page=' + page)
   }
 }

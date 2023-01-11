@@ -12,8 +12,10 @@
     ><br />
     <span>Genres: </span>
     <span v-for="genre in anime.genres" :key="genre.name"
-      >{{ genre.name }} .
-    </span>
+      >{{ genre.name }} . </span
+    ><br />
+    <span>Score: </span>
+    <span>{{ anime.score }}</span>
   </div>
 </template>
 <script>

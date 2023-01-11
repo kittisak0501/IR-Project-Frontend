@@ -1,58 +1,20 @@
 <template>
   <form @submit.prevent="search">
-    <input type="text" v-model="name" placeholder="Search Anime..." />
+    <input type="text" v-model="newname" placeholder="Search Anime..." />
     <button type="submit">Search</button>
     <button class="dummy">Search By</button>
-    <select name="search filter" v-model="filter">
+    <select name="search filter" v-model="newfilter">
       <option value="Name">Name</option>
       <option value="Content">Content</option>
     </select>
   </form>
-  <h2 style="font-weight: 700">Anime:</h2>
+  <h2 style="font-weight: 700">Search Anime:</h2>
   <div class="animes">
-    <div class="pagination">
-      <router-link
-        id="page-prev"
-        :to="{ name: 'AnimeList', query: { page: page - 1 } }"
-        rel="prev"
-        v-if="page != 1"
-      >
-        Prev Page
-      </router-link>
-
-      <router-link
-        id="page-next"
-        :to="{ name: 'AnimeList', query: { page: page + 1 } }"
-        rel="next"
-        v-if="page < 876"
-      >
-        Next Page
-      </router-link>
-    </div>
     <AnimeCard
       v-for="anime in animes"
       :key="anime.mal_id"
       :anime="anime"
     ></AnimeCard>
-    <div class="pagination">
-      <router-link
-        id="page-prev"
-        :to="{ name: 'AnimeList', query: { page: page - 1 } }"
-        rel="prev"
-        v-if="page != 1"
-      >
-        Prev Page
-      </router-link>
-
-      <router-link
-        id="page-next"
-        :to="{ name: 'AnimeList', query: { page: page + 1 } }"
-        rel="next"
-        v-if="page < 876"
-      >
-        Next Page
-      </router-link>
-    </div>
   </div>
 </template>
 
@@ -60,56 +22,50 @@
 import AnimeCard from '@/components/AnimeCard.vue'
 import AnimeService from '@/services/AnimeAPIService.js'
 export default {
-  name: 'AnimeListView',
+  name: 'AnimeSearchView',
   props: {
     page: {
       type: Number,
       required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    filter: {
+      type: String,
+      required: true
+    }
+  },
+  data() {
+    return {
+      animes: null,
+      newfilter: this.filter,
+      newname: this.name
     }
   },
   components: {
     AnimeCard
   },
-  data() {
-    return {
-      animes: null,
-      filter: 'Name',
-      name: ''
-    }
-  },
   methods: {
     search() {
-      this.$router.push({
-        name: 'AnimeSearch',
-        query: { name: this.name, filter: this.filter }
-      })
+      AnimeService.searchAnimeByContent(parseInt(this.page) || 1, this.newname)
+        .then((response) => {
+          this.animes = response.data.data
+          this.$router.push({
+            name: 'AnimeSearch',
+            query: { name: this.newname, filter: this.newfilter }
+          })
+        })
+        .catch(() => {
+          // next({ name: 'NetworkError' })
+        })
     }
   },
-  beforeRouteEnter(routeTo, routeFrom, next) {
-    AnimeService.getAnimes(parseInt(routeTo.query.page) || 1)
-      .then((response) => {
-        next((comp) => {
-          comp.animes = response.data.data
-        })
-      })
-      .catch(() => {
-        next({ name: 'NetworkError' })
-      })
-  },
-  beforeRouteUpdate(routeTo, routeFrom, next) {
-    AnimeService.getAnimes(parseInt(routeTo.query.page) || 1)
-      .then((response) => {
-        this.animes = response.data.data
-        next()
-      })
-      .catch(() => {
-        next({ name: 'NetworkError' })
-      })
-  },
   computed: {
-    // hasNextPage() {
-    //   return this.pagination.has_next_page
-    // }
+    nameToUse() {
+      return this.name
+    }
   }
 }
 </script>
