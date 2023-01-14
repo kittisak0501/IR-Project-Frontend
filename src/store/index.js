@@ -5,5 +5,6 @@ export default reactive({
   doctors: null,
   doctorcomments: null,
   user: null,
-  currentUser: JSON.parse(localStorage.getItem('user'))
+  currentUser: JSON.parse(localStorage.getItem('user')),
+  bookmark: []
 })

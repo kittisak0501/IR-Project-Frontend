@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AnimeListView from '../views/AnimeListView.vue'
 import AnimeSearchView from '../views/AnimeSearchView.vue'
+import AnimeBookmarkView from '../views/AnimeBookMarkView.vue'
 import PatientLayoutView from '@/views/patient/PatientLayoutView.vue'
 import PatientDetailView from '@/views/patient/PatientDetailsView.vue'
 import PatientVaccineView from '@/views/patient/PatientVaccineView.vue'
@@ -28,6 +29,16 @@ const routes = [
     path: '/search',
     name: 'AnimeSearch',
     component: AnimeSearchView,
+    props: (route) => ({
+      page: parseInt(route.query.page) || 1,
+      name: route.query.name,
+      filter: route.query.filter
+    })
+  },
+  {
+    path: '/bookmark',
+    name: 'AnimeBokmark',
+    component: AnimeBookmarkView,
     props: (route) => ({
       page: parseInt(route.query.page) || 1,
       name: route.query.name,
