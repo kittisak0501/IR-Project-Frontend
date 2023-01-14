@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from '@/plugins/font-awesome.js'
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import GStore from './store'
+import GStore from './store/index'
+import store from './store/store'
 import 'nprogress/nprogress.css'
 import '@/services/AxiosInterceptorSetup.js'
 
@@ -29,6 +30,7 @@ requireComponent.keys().forEach((fileName) => {
 
 app
   .use(router)
+  .use(store)
   .component('font-awesome-icon', FontAwesomeIcon)
   .provide('GStore', GStore)
   .mount('#app')

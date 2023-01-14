@@ -2,7 +2,7 @@ import axios from 'axios'
 import router from '@/router'
 import GStore from '@/store'
 const apiClient = axios.create({
-  baseURL: "http://localhost:3004/users",
+  baseURL: 'http://localhost:3004/users',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'

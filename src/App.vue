@@ -1,80 +1,21 @@
 <template>
   <nav class="navbar navbar-dark" style="background-color: lightskyblue">
-    <router-link
-      :to="{ name: 'PatientDetails', params: { id: 1 } }"
-      style="font-size: 25px"
-      v-if="isUser && !isAdmin && !isDoctor"
-    >
-      <font-awesome-icon icon="suitcase-medical" /> COVID VACCINATION
-    </router-link>
-    <router-link to="/" style="font-size: 25px" v-if="isAdmin">
-      <font-awesome-icon icon="suitcase-medical" /> COVID VACCINATION
-    </router-link>
-    <router-link to="/doctorsPatient" style="font-size: 25px" v-if="isDoctor">
-      <font-awesome-icon icon="suitcase-medical" /> COVID VACCINATION
-    </router-link>
+    <router-link to="/" style="font-size: 25px">My Anime Search </router-link>
     <nav class="navbar-expand">
-      <ul v-if="!GStore.currentUser" class="navbar-nav ml-auto">
-        <li class="nav-items">
-          <router-link to="/register" class="nav-link">
-            <font-awesome-icon icon="user-plus" /> Sign Up
-          </router-link>
-        </li>
-        <li class="nav-items">
-          <router-link to="/login" class="nav-link">
-            <font-awesome-icon icon="sign-in-alt" /> Login
-          </router-link>
-        </li>
-      </ul>
-      <ul v-if="GStore.currentUser" class="navbar-nav ml-auto">
-        <li class="nav-items" v-if="isAdmin">
-          <router-link to="/add-patient" class="nav-link"
-            ><font-awesome-icon icon="folder-plus" /> Add Patient</router-link
-          >
-        </li>
-        <li class="nav-items">
-          <router-link to="/profile" class="nav-link">
-            <font-awesome-icon icon="user" />
-            {{ GStore.currentUser.doctor_name }}
-          </router-link>
-        </li>
-        <li class="nav-items">
-          <a class="nav-link" @click="logout">
-            <font-awesome-icon icon="sign-out-alt" /> Logout
-          </a>
-        </li>
-      </ul>
+      <span v-if="this.$store.state.loggedIn == false">
+        <router-link to="/login">
+          <a class="login-button">Log in</a>
+        </router-link>
+      </span>
+      <span v-else>
+        <a class="logout-button" @click="this.$store.dispatch('logout')"
+          >Log out</a
+        >
+      </span>
     </nav>
   </nav>
   <router-view />
 </template>
-
-<script>
-import AuthService from '@/services/AuthService.js'
-export default {
-  inject: ['GStore'],
-  computed: {
-    currentUser() {
-      return localStorage.getItem('user')
-    },
-    isAdmin() {
-      return AuthService.hasRoles('ROLE_ADMIN')
-    },
-    isDoctor() {
-      return AuthService.hasRoles('ROLE_DOCTOR')
-    },
-    isUser() {
-      return AuthService.hasRoles('ROLE_USER')
-    }
-  },
-  methods: {
-    logout() {
-      AuthService.logout()
-      this.$router.push('/login')
-    }
-  }
-}
-</script>
 
 <style>
 #app {

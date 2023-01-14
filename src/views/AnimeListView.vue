@@ -1,4 +1,7 @@
 <template>
+  <span v-if="this.$store.state.loggedIn == true">
+    <h4>Hello, {{ this.$store.state.currentUser.username }}</h4>
+  </span>
   <form @submit.prevent="search">
     <input type="text" v-model="name" placeholder="Search Anime..." />
     <button type="submit">Search</button>

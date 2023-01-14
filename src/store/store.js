@@ -11,12 +11,12 @@ export default createStore({
         favorites: []
       },
       {
-        username: 'user1',
-        password: 'password1',
+        username: 'user',
+        password: '123',
         favorites: []
       }
     ],
-    currentUser: 'user1',
+    currentUser: null,
     username: '',
     password: ''
   },
@@ -37,7 +37,7 @@ export default createStore({
     },
     logout() {
       this.commit('resetState')
-      router.push('/')
+      router.push('/login')
     }
   },
   mutations: {
