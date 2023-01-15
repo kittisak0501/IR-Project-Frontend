@@ -3,6 +3,7 @@
     <h4>Hello, {{ this.$store.state.currentUser.username }}</h4>
   </span>
   <h2 style="font-weight: 700">Anime BookMark:</h2>
+  {{ this.$store.state.currentUser.favorites }}
   <AnimeCard
     v-for="anime in animes"
     :key="anime.mal_id"

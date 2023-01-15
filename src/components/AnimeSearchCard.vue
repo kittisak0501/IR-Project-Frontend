@@ -15,6 +15,11 @@
     <br />
     <span>Score: </span>
     <span>{{ anime.score }}</span>
+    <div v-if="this.$store.state.currentUser != null">
+      <button :class="{ active: haveInFav }" @click="toggle(haveInFav)">
+        {{ haveInFav ? 'BookMark ⭐' : 'BookMark ☆' }}
+      </button>
+    </div>
   </div>
 </template>
 <script>
@@ -24,6 +29,35 @@ export default {
     anime: {
       type: Object,
       required: true
+    }
+  },
+  data() {
+    return {
+      isActive: false
+    }
+  },
+  methods: {
+    toggle(isActive) {
+      if (!isActive) {
+        this.$store.state.currentUser.favorites.push(this.anime.mal_id)
+        // isActive = true
+      } else {
+        this.$store.state.currentUser.favorites.pop(this.anime.mal_id)
+        // isActive = false
+      }
+    }
+  },
+  computed: {
+    haveInFav() {
+      let Active = false
+      if (this.$store.state.currentUser != null) {
+        if (
+          this.$store.state.currentUser.favorites.includes(this.anime.mal_id)
+        ) {
+          Active = true
+        }
+      }
+      return Active
     }
   }
 }

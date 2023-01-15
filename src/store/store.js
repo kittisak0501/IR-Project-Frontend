@@ -1,6 +1,11 @@
 import { createStore } from 'vuex'
 import loginService from '../services/LoginService'
 import router from '@/router'
+import VuexPersistence from 'vuex-persist'
+
+const vuexLocal = new VuexPersistence({
+  storage: window.localStorage
+})
 export default createStore({
   state: {
     loggedIn: false,
@@ -43,7 +48,12 @@ export default createStore({
   mutations: {
     resetState(state) {
       this.state.loggedIn = false
-      state.currentUser = null
+      state.currentUser = state.currentUser = { username: '', favorites: [] }
+      if (router.currentRoute.value.fullPath == '/bookmark') {
+        router.go(-1)
+      } else {
+        router.push('')
+      }
     },
     loginSuccess(state) {
       state.loggedIn = true
@@ -64,5 +74,6 @@ export default createStore({
     }
   },
   getters: {},
-  modules: {}
+  modules: {},
+  plugins: [vuexLocal.plugin]
 })

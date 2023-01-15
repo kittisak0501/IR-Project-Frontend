@@ -8,6 +8,7 @@ import GStore from './store/index'
 import store from './store/store'
 import 'nprogress/nprogress.css'
 import '@/services/AxiosInterceptorSetup.js'
+import VueCookies from 'vue-cookies'
 
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
@@ -31,6 +32,13 @@ requireComponent.keys().forEach((fileName) => {
 app
   .use(router)
   .use(store)
+  .use(VueCookies)
   .component('font-awesome-icon', FontAwesomeIcon)
   .provide('GStore', GStore)
-  .mount('#app')
+
+VueCookies.set('myCookie', 'value', {
+  SameSite: 'Strict',
+  secure: true
+})
+
+app.mount('#app')

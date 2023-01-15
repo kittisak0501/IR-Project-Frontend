@@ -25,5 +25,8 @@ apiClient.interceptors.response.use(
 export default {
   searchAnimeByName(q) {
     return apiClient.get('/title?query=' + q)
+  },
+  searchAnimeByContent(q) {
+    return apiClient.get('/description?query=' + q)
   }
 }

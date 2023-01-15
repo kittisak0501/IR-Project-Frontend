@@ -6,7 +6,7 @@
     <h4>Hello, {{ this.$store.state.currentUser.username }}</h4>
   </span>
   <form @submit.prevent="search">
-    <input type="text" v-model="newname" placeholder="Search Anime..." />
+    <input type="text" v-model="newquery" placeholder="Search Anime..." />
     <button type="submit">Search</button>
     <button class="dummy">Search By</button>
     <select name="search filter" v-model="newfilter">
@@ -45,9 +45,10 @@ export default {
   },
   data() {
     return {
-      animes: null,
+      animes: [],
+      similar: null,
       newfilter: this.filter,
-      newname: this.name
+      newquery: this.name
     }
   },
   components: {
@@ -55,12 +56,19 @@ export default {
   },
   methods: {
     search() {
-      AnimeSearchService.searchAnimeByName(this.newname)
+      let searchFunction = AnimeSearchService.searchAnimeByContent
+      if (this.newfilter == 'Name') {
+        searchFunction = AnimeSearchService.searchAnimeByName
+      }
+      searchFunction(this.newquery)
         .then((response) => {
+          if (response.data.response == '404') {
+            alert('not found! Did you mean: ' + response.data.similar)
+          }
           this.animes = response.data
           this.$router.push({
             name: 'AnimeSearch',
-            query: { name: this.newname, filter: this.newfilter }
+            query: { name: this.newquery, filter: this.newfilter }
           })
         })
         .catch(() => {

@@ -40,10 +40,10 @@ export default {
   methods: {
     toggle(isActive) {
       if (!isActive) {
-        this.$store.state.currentUser.favorites.push(this.anime)
+        this.$store.state.currentUser.favorites.push(this.anime.mal_id)
         // isActive = true
       } else {
-        this.$store.state.currentUser.favorites.pop(this.anime)
+        this.$store.state.currentUser.favorites.pop(this.anime.mal_id)
         // isActive = false
       }
     }
@@ -52,7 +52,9 @@ export default {
     haveInFav() {
       let Active = false
       if (this.$store.state.currentUser != null) {
-        if (this.$store.state.currentUser.favorites.includes(this.anime)) {
+        if (
+          this.$store.state.currentUser.favorites.includes(this.anime.mal_id)
+        ) {
           Active = true
         }
       }
