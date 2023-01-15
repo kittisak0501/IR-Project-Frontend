@@ -1,4 +1,7 @@
 <template>
+  <router-link to="/bookmark"
+    ><button class="bookmark">Book Mark</button></router-link
+  >
   <form @submit.prevent="search">
     <input type="text" v-model="newname" placeholder="Search Anime..." />
     <button type="submit">Search</button>
@@ -156,5 +159,14 @@ button {
   border-radius: 5px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.bookmark {
+  display: inline-block;
+  position: absolute;
+  left: 50px;
+  width: 200px;
+  font-size: 20px;
+  border: none;
+  margin-top: 50px;
 }
 </style>

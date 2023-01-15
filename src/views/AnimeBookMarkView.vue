@@ -1,70 +1,41 @@
 <template>
-  <h2 style="font-weight: 700">Anime Book Mark:</h2>
-  <div class="animes">
-    <AnimeCard
-      v-for="anime in animes"
-      :key="anime.mal_id"
-      :anime="anime"
-    ></AnimeCard>
-  </div>
+  <table class="favorites-list">
+    <tr>
+      <th>#</th>
+      <th class>Anime</th>
+      <th>Score</th>
+      <th>Remove from list</th>
+    </tr>
+    <tr
+      class="favorites-detail"
+      v-for="favorite in favorites"
+      :key="favorite.id"
+    >
+      <td>{{ favorite.rank }}</td>
+      <td class="name">{{ favorite.name }}</td>
+      <td>{{ favorite.score }}</td>
+      <td>
+        <button class="remove" @click="dispatchAction(favorite)">-</button>
+      </td>
+    </tr>
+  </table>
 </template>
 
 <script>
-import GStore from '@/store'
-import AnimeCard from '@/components/AnimeCard.vue'
-// import AnimeService from '@/services/AnimeAPIService.js'
+import { mapState } from 'vuex'
 export default {
-  inject: [GStore],
-  name: 'AnimeBookmarkView',
-  props: {
-    page: {
-      type: Number,
-      required: true
-    }
-  },
-  components: {
-    AnimeCard
-  },
-  data() {
-    return {
-      animes: GStore.bookmark,
-      filter: 'Name',
-      name: ''
-    }
-  },
+  name: 'FavoriteListView',
   methods: {
-    search() {
-      this.$router.push({
-        name: 'AnimeSearch',
-        query: { name: this.name, filter: this.filter }
-      })
+    dispatchAction(favorite) {
+      console.log(favorite)
+      this.$store.commit('setSelectedAnime', favorite)
+      this.$store.dispatch('RemoveFromList')
     }
   },
-  // beforeRouteEnter(routeTo, routeFrom, next) {
-  //   AnimeService.getAnimes(parseInt(routeTo.query.page) || 1)
-  //     .then((response) => {
-  //       next((comp) => {
-  //         comp.animes = response.data.data
-  //       })
-  //     })
-  //     .catch(() => {
-  //       next({ name: 'NetworkError' })
-  //     })
-  // },
-  // beforeRouteUpdate(routeTo, routeFrom, next) {
-  //   AnimeService.getAnimes(parseInt(routeTo.query.page) || 1)
-  //     .then((response) => {
-  //       this.animes = response.data.data
-  //       next()
-  //     })
-  //     .catch(() => {
-  //       next({ name: 'NetworkError' })
-  //     })
-  // },
   computed: {
-    // hasNextPage() {
-    //   return this.pagination.has_next_page
-    // }
+    ...mapState({
+      favorites: (state) => state.currentUser.favorites
+    })
   }
 }
 </script>

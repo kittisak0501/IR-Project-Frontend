@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AnimeListView from '../views/AnimeListView.vue'
 import AnimeSearchView from '../views/AnimeSearchView.vue'
+import AnimeBookmarkView from '../views/AnimeBookMarkView.vue'
 import NProgress from 'nprogress'
 import NetWorkErrorView from '@/views/NetworkErrorView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
@@ -22,6 +23,11 @@ const routes = [
       name: route.query.name,
       filter: route.query.filter
     })
+  },
+  {
+    path: '/bookmark',
+    name: 'AnimeBookmark',
+    component: AnimeBookmarkView
   },
   {
     path: '/login',
