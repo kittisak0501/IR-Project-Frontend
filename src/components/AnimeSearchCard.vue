@@ -4,7 +4,7 @@
       <b>{{ anime.title }}</b>
     </h4>
     <br />
-    <img :src="anime.images.webp.image_url" />
+    <img :src="anime.main_picture" />
     <br />
     <span>Episodes: {{ anime.episodes }}</span
     ><br />
@@ -19,7 +19,7 @@
 </template>
 <script>
 export default {
-  name: 'AnimeCard',
+  name: 'AnimeSearchCard',
   props: {
     anime: {
       type: Object,

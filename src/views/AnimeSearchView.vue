@@ -9,7 +9,6 @@
     </select>
   </form>
   <h2 style="font-weight: 700">Search Anime:</h2>
-  {{ animes }}
   <div class="animes">
     <AnimeCard
       v-for="anime in animes"
@@ -20,7 +19,7 @@
 </template>
 
 <script>
-import AnimeCard from '@/components/AnimeCard.vue'
+import AnimeCard from '@/components/AnimeSearchCard.vue'
 import AnimeSearchService from '@/services/AnimeSearch.js'
 export default {
   name: 'AnimeSearchView',
@@ -61,11 +60,6 @@ export default {
         .catch(() => {
           // next({ name: 'NetworkError' })
         })
-    }
-  },
-  computed: {
-    nameToUse() {
-      return this.name
     }
   }
 }
