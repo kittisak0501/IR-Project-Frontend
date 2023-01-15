@@ -2,7 +2,7 @@ import axios from 'axios'
 import router from '@/router'
 
 const apiClient = axios.create({
-  baseURL: process.env.VUE_APP_BACKEND_URL,
+  baseURL: 'http://localhost:5000',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'
@@ -21,3 +21,9 @@ apiClient.interceptors.response.use(
     }
   }
 )
+
+export default {
+  searchAnimeByName(q) {
+    return apiClient.get('/title?query=' + q)
+  }
+}

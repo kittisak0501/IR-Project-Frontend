@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import AnimeCard from '@/components/AnimeCard.vue'
-import AnimeService from '@/services/AnimeAPIService.js'
+import AnimeCard from '@/components/AnimeSearchCard.vue'
+import AnimeSearchService from '@/services/AnimeSearch.js'
 export default {
   name: 'AnimeSearchView',
   props: {
@@ -55,9 +55,9 @@ export default {
   },
   methods: {
     search() {
-      AnimeService.searchAnimeByContent(parseInt(this.page) || 1, this.newname)
+      AnimeSearchService.searchAnimeByName(this.newname)
         .then((response) => {
-          this.animes = response.data.data
+          this.animes = response.data
           this.$router.push({
             name: 'AnimeSearch',
             query: { name: this.newname, filter: this.newfilter }
@@ -66,11 +66,6 @@ export default {
         .catch(() => {
           // next({ name: 'NetworkError' })
         })
-    }
-  },
-  computed: {
-    nameToUse() {
-      return this.name
     }
   }
 }

@@ -4,7 +4,7 @@
       <b>{{ anime.title }}</b>
     </h4>
     <br />
-    <img :src="anime.images.webp.image_url" />
+    <img :src="anime.main_picture" />
     <br />
     <span>Episodes: {{ anime.episodes }}</span
     ><br />
@@ -15,48 +15,15 @@
     <br />
     <span>Score: </span>
     <span>{{ anime.score }}</span>
-    <div v-if="this.$store.state.currentUser != null">
-      <button :class="{ active: haveInFav }" @click="toggle(haveInFav)">
-        {{ haveInFav ? 'BookMark ⭐' : 'BookMark ☆' }}
-      </button>
-    </div>
   </div>
 </template>
-
 <script>
 export default {
-  name: 'AnimeCard',
+  name: 'AnimeSearchCard',
   props: {
     anime: {
       type: Object,
       required: true
-    }
-  },
-  data() {
-    return {
-      isActive: false
-    }
-  },
-  methods: {
-    toggle(isActive) {
-      if (!isActive) {
-        this.$store.state.currentUser.favorites.push(this.anime)
-        // isActive = true
-      } else {
-        this.$store.state.currentUser.favorites.pop(this.anime)
-        // isActive = false
-      }
-    }
-  },
-  computed: {
-    haveInFav() {
-      let Active = false
-      if (this.$store.state.currentUser != null) {
-        if (this.$store.state.currentUser.favorites.includes(this.anime)) {
-          Active = true
-        }
-      }
-      return Active
     }
   }
 }
