@@ -21,7 +21,7 @@ export default createStore({
         favorites: []
       }
     ],
-    currentUser: null,
+    currentUser: { username: '', favorites: [] },
     username: '',
     password: ''
   },
@@ -71,6 +71,9 @@ export default createStore({
     },
     setPasswordInput(state, input) {
       state.password = input
+    },
+    save(state) {
+      localStorage.setItem('state', state)
     }
   },
   getters: {},

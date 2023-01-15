@@ -43,9 +43,14 @@ export default {
         this.$store.state.currentUser.favorites.push(this.anime.mal_id)
         // isActive = true
       } else {
-        this.$store.state.currentUser.favorites.pop(this.anime.mal_id)
-        // isActive = false
+        var arr = this.$store.state.currentUser.favorites
+        var index = arr.indexOf(this.anime.mal_id)
+        if (index > -1) {
+          arr.splice(index, 1)
+        }
+        this.$store.state.currentUser.favorites = arr
       }
+      this.$store.commit('save')
     }
   },
   computed: {

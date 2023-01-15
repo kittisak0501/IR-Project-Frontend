@@ -3,7 +3,6 @@
     <h4>Hello, {{ this.$store.state.currentUser.username }}</h4>
   </span>
   <h2 style="font-weight: 700">Anime BookMark:</h2>
-  {{ this.$store.state.currentUser.favorites }}
   <AnimeCard
     v-for="anime in animes"
     :key="anime.mal_id"
@@ -13,7 +12,7 @@
 
 <script>
 import AnimeCard from '@/components/AnimeCard.vue'
-import { mapState } from 'vuex'
+import AnimeAPIService from '@/services/AnimeAPIService'
 export default {
   name: 'AnimeBookmarkView',
   components: {
@@ -21,19 +20,21 @@ export default {
   },
   data() {
     return {
-      animes: this.$store.state.currentUser.favorites
+      animeID: this.$store.state.currentUser.favorites,
+      animes: []
     }
   },
-  methods: {
-    dispatchAction(favorite) {
-      console.log(favorite)
-      this.$store.commit('setSelectedAnime', favorite)
-      this.$store.dispatch('RemoveFromList')
-    }
-  },
-  computed: {
-    ...mapState({
-      favorites: (state) => state.currentUser.favorites
+  beforeRouteEnter(routeTo, routeFrom, next) {
+    next((comp) => {
+      comp.animeID.forEach((id) => {
+        AnimeAPIService.getAnime(id)
+          .then((response) => {
+            comp.animes.push(response.data.data)
+          })
+          .catch(() => {
+            next({ name: 'NetworkError' })
+          })
+      })
     })
   }
 }
