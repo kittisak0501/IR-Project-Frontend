@@ -1,7 +1,10 @@
 <template>
-  <router-link to="/bookmark"
+  <router-link to="/bookmark" v-if="this.$store.state.currentUser != null"
     ><button class="bookmark">Book Mark</button></router-link
   >
+  <span v-if="this.$store.state.loggedIn == true">
+    <h4>Hello, {{ this.$store.state.currentUser.username }}</h4>
+  </span>
   <form @submit.prevent="search">
     <input type="text" v-model="newname" placeholder="Search Anime..." />
     <button type="submit">Search</button>

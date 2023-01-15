@@ -19,18 +19,16 @@
         {{ anime.type }}
       </a>
     </div>
-    <div>
-      <button :class="{ active: isActive }" @click="toggle">
-        {{ isActive ? 'ON' : 'OFF' }}
+    <div v-if="this.$store.state.currentUser != null">
+      <button :class="{ active: haveInFav }" @click="toggle(haveInFav)">
+        {{ haveInFav ? 'BookMark ⭐' : 'BookMark ☆' }}
       </button>
     </div>
   </div>
 </template>
 
 <script>
-import GStore from '@/store'
 export default {
-  inject: ['GStore'],
   name: 'AnimeCard',
   props: {
     anime: {
@@ -40,20 +38,29 @@ export default {
   },
   data() {
     return {
-      isActive: GStore.bookmark.includes(this.anime)
+      isActive: false
     }
   },
   methods: {
-    toggle() {
-      if (!this.isActive) {
-        this.isActive = true
-        GStore.bookmark.push(this.anime)
-        console.log('added ' + GStore.bookmark)
+    toggle(isActive) {
+      if (!isActive) {
+        this.$store.state.currentUser.favorites.push(this.anime)
+        isActive = true
       } else {
-        this.isActive = false
-        GStore.bookmark.pop(this.anime)
-        console.log('remove ' + GStore.bookmark)
+        this.$store.state.currentUser.favorites.pop(this.anime)
+        isActive = false
       }
+    }
+  },
+  computed: {
+    haveInFav() {
+      let Active = false
+      if (this.$store.state.currentUser != null) {
+        if (this.$store.state.currentUser.favorites.includes(this.anime)) {
+          Active = true
+        }
+      }
+      return Active
     }
   }
 }

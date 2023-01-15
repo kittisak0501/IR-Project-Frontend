@@ -1,30 +1,28 @@
 <template>
-  <table class="favorites-list">
-    <tr>
-      <th>#</th>
-      <th class>Anime</th>
-      <th>Score</th>
-      <th>Remove from list</th>
-    </tr>
-    <tr
-      class="favorites-detail"
-      v-for="favorite in favorites"
-      :key="favorite.id"
-    >
-      <td>{{ favorite.rank }}</td>
-      <td class="name">{{ favorite.name }}</td>
-      <td>{{ favorite.score }}</td>
-      <td>
-        <button class="remove" @click="dispatchAction(favorite)">-</button>
-      </td>
-    </tr>
-  </table>
+  <span v-if="this.$store.state.loggedIn == true">
+    <h4>Hello, {{ this.$store.state.currentUser.username }}</h4>
+  </span>
+  <h2 style="font-weight: 700">Anime BookMark:</h2>
+  <AnimeCard
+    v-for="anime in animes"
+    :key="anime.mal_id"
+    :anime="anime"
+  ></AnimeCard>
 </template>
 
 <script>
+import AnimeCard from '@/components/AnimeCard.vue'
 import { mapState } from 'vuex'
 export default {
-  name: 'FavoriteListView',
+  name: 'AnimeBookmarkView',
+  components: {
+    AnimeCard
+  },
+  data() {
+    return {
+      animes: this.$store.state.currentUser.favorites
+    }
+  },
   methods: {
     dispatchAction(favorite) {
       console.log(favorite)

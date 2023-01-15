@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/bookmark"
+  <router-link to="/bookmark" v-if="this.$store.state.currentUser != null"
     ><button class="bookmark">Book Mark</button></router-link
   >
   <span v-if="this.$store.state.loggedIn == true">
