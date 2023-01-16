@@ -27,6 +27,7 @@
 <script>
 import AnimeCard from '@/components/AnimeSearchCard.vue'
 import AnimeSearchService from '@/services/AnimeSearch.js'
+import { mapState } from 'vuex'
 export default {
   name: 'AnimeSearchView',
   props: {
@@ -66,6 +67,7 @@ export default {
             alert('not found! Did you mean: ' + response.data.similar)
           }
           this.animes = response.data
+          this.$store.state.anime = response.data
           this.$router.push({
             name: 'AnimeSearch',
             query: { name: this.newquery, filter: this.newfilter }
@@ -74,7 +76,14 @@ export default {
         .catch(() => {
           // next({ name: 'NetworkError' })
         })
+      this.$store.commit('save')
     }
+  },
+  computed: {
+    ...mapState({
+      user: (state) => state.currentUser.username,
+      animes: (state) => state.anime.data
+    })
   }
 }
 </script>

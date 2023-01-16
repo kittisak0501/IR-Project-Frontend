@@ -21,7 +21,7 @@ export default createStore({
         favorites: []
       }
     ],
-    currentUser: { username: '', favorites: [] },
+    currentUser: null,
     username: '',
     password: ''
   },
@@ -42,13 +42,14 @@ export default createStore({
     },
     logout() {
       this.commit('resetState')
+      this.commit('save')
       router.push('/login')
     }
   },
   mutations: {
     resetState(state) {
       this.state.loggedIn = false
-      state.currentUser = state.currentUser = { username: '', favorites: [] }
+      state.currentUser = state.currentUser = null
       if (router.currentRoute.value.fullPath == '/bookmark') {
         router.go(-1)
       } else {
