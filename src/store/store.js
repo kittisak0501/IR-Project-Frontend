@@ -49,7 +49,7 @@ export default createStore({
   mutations: {
     resetState(state) {
       this.state.loggedIn = false
-      state.currentUser = state.currentUser = null
+      state.currentUser = null
       if (router.currentRoute.value.fullPath == '/bookmark') {
         router.go(-1)
       } else {
@@ -59,6 +59,12 @@ export default createStore({
     loginSuccess(state) {
       state.loggedIn = true
       state.currentUser = { username: this.state.username, favorites: [] }
+      let selectedUser = state.users.find(
+        (user) => user.username === state.currentUser.username
+      )
+      if (selectedUser != null) {
+        state.currentUser.favorites = selectedUser.favorites
+      }
       state.username = ''
       state.password = ''
     },
@@ -74,6 +80,12 @@ export default createStore({
       state.password = input
     },
     save(state) {
+      let selectedUser = state.users.find(
+        (user) => user.username === state.currentUser.username
+      )
+      if (selectedUser != null) {
+        selectedUser.favorites = state.currentUser.favorites
+      }
       localStorage.setItem('state', state)
     }
   },
