@@ -1,26 +1,36 @@
 <template>
-  <div class="anime-card">
-    <h4 style="font-weight: bolder">
-      <b>{{ anime.title }}</b>
-    </h4>
-    <br />
-    <img :src="anime.images.webp.image_url" />
-    <br />
-    <span>Episodes: {{ anime.episodes }}</span
-    ><br />
-    <span>Season: {{ anime.season }} {{ anime.year }}</span
-    ><br />
-    <span>synopsis: </span>
-    <span>{{ anime.synopsis.substr(0, 50) }} ... </span>
-    <br />
-    <span>Score: </span>
-    <span>{{ anime.score }}</span>
-    <div v-if="this.$store.state.currentUser != null">
-      <button :class="{ active: haveInFav }" @click="toggle(haveInFav)">
-        {{ haveInFav ? 'BookMark ⭐' : 'BookMark ☆' }}
-      </button>
+  <router-link
+    target="_self"
+    :to="{ name: 'AnimeDetails', params: { id: anime.mal_id } }"
+  >
+    <div class="anime-card">
+      <h4 style="font-weight: bolder">
+        <b>{{ anime.title }}</b>
+      </h4>
+      <br />
+      <img :src="anime.images.webp.image_url" />
+      <br />
+      <span>Episodes: {{ anime.episodes }}</span
+      ><br />
+      <span v-if="anime.season != []"
+        >Season: {{ anime.season }} {{ anime.year }}</span
+      ><br />
+      <span v-if="anime.synopsis != null"
+        >synopsis: {{ anime.synopsis.substr(0, 50) }} ...
+      </span>
+      <br />
+      <span>Score: </span>
+      <span>{{ anime.score }}</span>
+      <div v-if="this.$store.state.currentUser != null">
+        <button
+          :class="{ active: haveInFav }"
+          @click.prevent="toggle(haveInFav)"
+        >
+          {{ haveInFav ? 'BookMark ⭐' : 'BookMark ☆' }}
+        </button>
+      </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -32,16 +42,10 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      isActive: false
-    }
-  },
   methods: {
     toggle(isActive) {
       if (!isActive) {
         this.$store.state.currentUser.favorites.push(this.anime.mal_id)
-        // isActive = true
       } else {
         var arr = this.$store.state.currentUser.favorites
         var index = arr.indexOf(this.anime.mal_id)
@@ -79,6 +83,7 @@ export default {
   cursor: pointer;
   border: 1px solid #1a467d;
   margin: 5px;
+  color: black;
 }
 
 .anime-card:hover {

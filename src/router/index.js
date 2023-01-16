@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import AnimeListView from '../views/AnimeListView.vue'
-import AnimeSearchView from '../views/AnimeSearchView.vue'
-import AnimeBookmarkView from '../views/AnimeBookMarkView.vue'
+import AnimeListView from '@/views/AnimeListView.vue'
+import AnimeSearchView from '@/views/AnimeSearchView.vue'
+import AnimeBookmarkView from '@/views/AnimeBookMarkView.vue'
+import AnimeDetailsView from '@/views/AnimeDetailsView.vue'
 import NProgress from 'nprogress'
 import NetWorkErrorView from '@/views/NetworkErrorView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import Login from '@/views/LoginFormView.vue'
+import AnimeAPIService from '@/services/AnimeAPIService.js'
+import store from '@/store/store.js'
 
 const routes = [
   {
@@ -28,6 +31,17 @@ const routes = [
     path: '/bookmark',
     name: 'AnimeBookmark',
     component: AnimeBookmarkView
+  },
+  {
+    path: '/:id',
+    name: 'AnimeDetails',
+    component: AnimeDetailsView,
+    beforeEnter: (to) => {
+      return AnimeAPIService.getAnime(to.params.id).then((response) => {
+        store.state.anime = response.data.data
+        console.log(store.state.anime)
+      })
+    }
   },
   {
     path: '/login',
